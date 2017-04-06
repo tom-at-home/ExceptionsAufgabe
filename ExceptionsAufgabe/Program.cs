@@ -29,8 +29,8 @@ namespace ExceptionsAufgabe
 
                 try
                 {
-                    int choise = Convert.ToInt32(Console.ReadLine());
-                    switch (choise)
+                    int choice = Convert.ToInt32(Console.ReadLine());
+                    switch (choice)
                     {
                         case 1:
                             ShowAllPersons();
