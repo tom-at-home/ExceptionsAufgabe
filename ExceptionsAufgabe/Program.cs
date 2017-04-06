@@ -70,19 +70,20 @@ namespace ExceptionsAufgabe
             
             try
             {
-                Console.WriteLine("Namen eingeben (Camelcase) > ");
+                Console.WriteLine("Namen eingeben (Camel Case) > ");
                 string name = ReadName();
                 Console.WriteLine("Nickname eingeben (max. 6 Zeichen) > ");
                 string nickname = ReadNickname();
-                //int age = ReadAge();
+                Console.WriteLine("Alter eingeben > ");
+                int age = ReadAge();
 
-                persons.Add(new Person() { Name = name, Nickname = nickname /*, Age = age*/ });
+                persons.Add(new Person() { Name = name, Nickname = nickname, Age = age });
 
                 Mainmenu();
             }
             catch (NameFormatException)
             {
-                Console.WriteLine("GROSSBUCHSTABE!");
+                Console.WriteLine("CAMEL CASE!");
                 AddPerson();
             }
             catch (NicknameFormatException)
@@ -126,7 +127,7 @@ namespace ExceptionsAufgabe
             }
         }
 
-        int Readage()
+        int ReadAge()
         {
             int age = 0;
             try
