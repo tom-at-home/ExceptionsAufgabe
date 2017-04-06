@@ -130,7 +130,7 @@ namespace ExceptionsAufgabe
                 }
                 catch (AssignedNicknameException)
                 {
-                    Console.WriteLine("Dieser Nickname ist bereits vergeben!");
+                    Console.WriteLine("NICKNAME IST BEREITS VERGEBEN!");
                 }
                 catch (NicknameFormatException)
                 {
@@ -164,7 +164,7 @@ namespace ExceptionsAufgabe
                 }
                 catch (FormatException)
                 {
-                    Console.WriteLine("Ungueltige Zahl");
+                    Console.WriteLine("UNGUELTIGE ZAHL");
                 }
             }
 
