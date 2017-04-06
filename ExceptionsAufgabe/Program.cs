@@ -67,95 +67,117 @@ namespace ExceptionsAufgabe
 
         void AddPerson()
         {
-            
-            try
-            {
-                Console.WriteLine("Namen eingeben (Camel Case) > ");
-                string name = ReadName();
-                Console.WriteLine("Nickname eingeben (max. 6 Zeichen) > ");
-                string nickname = ReadNickname();
-                Console.WriteLine("Alter eingeben > ");
-                int age = ReadAge();
+            string name = ReadName();
+            string nickname = ReadNickname();
+            int age = ReadAge();
 
-                persons.Add(new Person() { Name = name, Nickname = nickname, Age = age });
-
-                Mainmenu();
-            }
-            catch (NameFormatException)
-            {
-                Console.WriteLine("CAMEL CASE!");
-                AddPerson();
-            }
-            catch (NicknameFormatException)
-            {
-                Console.WriteLine("MAX 6 ZEICHEN!");
-                AddPerson();
-            }
+            persons.Add(new Person() { Name = name, Nickname = nickname, Age = age });
+            Mainmenu();
 
         }
 
         string ReadName()
         {
-
             string name;
-            name = Console.ReadLine();
-            if (Char.IsUpper(name, 0))
+
+            while (true)
             {
-                return name;
+                Console.WriteLine("Namen eingeben (Camel Case) > ");
+                try
+                {
+                    name = Console.ReadLine();
+                    if (Char.IsUpper(name, 0))
+                    {
+                        return name;
+                    }
+                    else
+                    {
+                        throw new NameFormatException();
+                    }
+                }
+                catch (NameFormatException)
+                {
+                    Console.WriteLine("CAMEL CASE!");
+                }
             }
-            else
-            {
-                throw new NameFormatException();
-            }
+
         }
 
         string ReadNickname()
         {
             string nickname;
-            nickname = Console.ReadLine();
-            
-            if (isNicknameAssigned(nickname))
+
+            while (true)
             {
-                throw new AssignedNicknameException();
-            }
-            else if(nickname.Length > 6){
-                throw new NicknameFormatException();
-            }
-            else
-            {
-                return nickname;
+                try
+                {
+                    Console.WriteLine("Nickname eingeben (max. 6 Zeichen) > ");
+
+                    nickname = Console.ReadLine();
+
+                    if (isNicknameAssigned(nickname))
+                    {
+                        throw new AssignedNicknameException();
+                    }
+                    else if (nickname.Length > 6)
+                    {
+                        throw new NicknameFormatException();
+                    }
+                    else
+                    {
+                        return nickname;
+                    }
+                }
+                catch (AssignedNicknameException)
+                {
+                    Console.WriteLine("Dieser Nickname ist bereits vergeben!");
+                }
+                catch (NicknameFormatException)
+                {
+                    Console.WriteLine("MAX 6 ZEICHEN!");
+                }
             }
         }
 
         int ReadAge()
         {
             int age = 0;
-            try
-            {
-                age = Convert.ToInt32(Console.ReadLine());
 
-                if(age <= 0)
+            while (true)
+            {
+                try
                 {
-                    throw new BadArgumentException();
+                    Console.WriteLine("Alter eingeben > ");
+
+                    age = Convert.ToInt32(Console.ReadLine());
+
+                    if (age <= 0)
+                    {
+                        throw new BadArgumentException();
+                    }
+
+                    return age;
                 }
-
+                catch (BadArgumentException)
+                {
+                    Console.WriteLine("DAS ALTER MUSS GROESSER ALS NULL SEIN");
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Ungueltige Zahl");
+                }
             }
-            catch (Exception)
-            {
-                Console.WriteLine("Ungueltige Zahl");
-            }
 
-            return age;
         }
 
         bool isNicknameAssigned(string nickname)
         {
             foreach (Person person in persons)
             {
-                if(person.Nickname == nickname)
+                if (person.Nickname == nickname)
                 {
                     return true;
-                }                
+                }
             }
             return false;
         }
